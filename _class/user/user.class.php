@@ -6,7 +6,7 @@ class User extends Model
 {
     private $pdo;
     private $table = 'user';  // Nome da tabela
-    private $nameField = '';  // Nome do campo para verificar duplicidade
+    private $nameField = 'email';  // Nome do campo para verificar duplicidade
     private $nameSlug = 'name';   // Nome do campo para gerar o slug
 
     public function __construct($pdo)

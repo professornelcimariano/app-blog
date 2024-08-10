@@ -12,12 +12,13 @@ $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $Data = [
     'name' => $data['name'],
     'email' => $data['email'],
+    'level' => $data['level'],
     'pass' => MD5($data['pass'])
 ];
 //Classe específica User que 'extend' Model - Contém validações específicas
 $user = new User($pdo);
 $user->insertUser($Data, $_FILES['image']);
-header("Location: " . $base . "/admin/".$dir);
+header("Location: " . $base . "/admin/" . $dir);
 
 //Classe Model Padrão (insert, delete, update, selectAll, selectOne, count)
 // $userModel = new Model($pdo, $model);

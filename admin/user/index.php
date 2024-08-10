@@ -35,6 +35,26 @@ include_once '../inc/header.php';
                         <label class="form-label"> Foto </label>
                         <input class="form-control" type="file" id="image" name="image">
                     </div>
+                    <div class="form-group mt-3">
+                        <label class="form-label"> Nível de Usuário </label>
+                        <select class="form-control" name="level">
+                            <?php
+                            try {
+                                $fk = 'level';
+                                $fk = new Model($pdo, $fk);
+                                $data = $fk->selectAll();
+                                foreach ($data as $registers) :
+                                    extract($registers);
+                            ?>
+                                    <option value="<?= $id ?>"><?= $name ?></option>
+                            <?php
+                                endforeach;
+                            } catch (PDOException $e) {
+                                echo 'error ' . $e->getMessage();
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <div class="d-flex justify-content-end mt-3">
                         <button type="submit" class="btn btn-success m-2">Cadastrar</button>
                         <button type="reset" class="btn btn-secondary m-2">Limpar</button>

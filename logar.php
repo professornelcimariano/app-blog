@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once './conn/config.php';
 include_once './conn/conect.php';
 // Essa validação é quando acessa a url diretamente: localhost/app-login/logar.php
 if (empty($_POST)) {

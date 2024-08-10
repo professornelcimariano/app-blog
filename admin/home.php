@@ -1,5 +1,5 @@
 <?php
-include '../conn/conect.php';
+include '../conn/config.php';
 include '../conn/conect.php';
 include '../_class/model.class.php';
 session_start();
