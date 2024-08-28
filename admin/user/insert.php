@@ -12,7 +12,7 @@ $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $Data = [
     'name' => $data['name'],
     'email' => $data['email'],
-    'level' => $data['level'],
+    // 'level' => $data['level'],
     'pass' => MD5($data['pass'])
 ];
 //Classe específica User que 'extend' Model - Contém validações específicas
