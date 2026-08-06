@@ -1,59 +1,73 @@
+<?php 
+require_once '_conn/connect.php'; 
+
+// Buscar todos os posts ativos
+try {
+    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE status = 1 ORDER BY id DESC");
+    $stmt->execute();
+    $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $blogs = [];
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>App Blog - Página Inicial</title>
+    <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="bg-light">
 
-<?php
-    echo MD5('Informatica#123');
-?>
+    <?php include '_inc/_header.php'; ?>
 
-    <!-- <div class="logo">
-         <img src="img/login2.svg" alt="">               
-    </div> -->
-
-    <div class="container">
-        <p> Bem Vindo ao Sistema </p> <hr>
-        <form action="logar.php" method="post">
-            <label>
-                E-mail
-            </label>
-            </br>
-            <input type="email" name="email" id="email" required>
-            </br>
-            <label>
-                Senha
-            </label>
-            </br>
-            <br>
-            <div class="password-container">
-                <input type="password" id="password" name="password" required>
-                <i class="fas fa-eye toggle-password" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+    <main class="container">
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary border w-100">
+            <div class="col-12 px-0">
+                <h1 class="display-4 fw-bold">O Futuro do Desenvolvimento Web com Bootstrap</h1>
+                <p class="lead my-3">Confira as melhores práticas para criar interfaces modernas, responsivas e de alta performance utilizando os recursos nativos do framework.</p>
             </div>
-            </br>
-            <input type="submit" value="Logar">
-        </form>
-    </div>
-    
-    <script>
-        let click = document.getElementById('passView');
+        </div>
 
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
-        }
-    </script>
+        <div class="row g-4">
+            <div class="col-12">
+                <h3 class="pb-2 mb-4 border-bottom">
+                    Últimas Publicações
+                </h3>
+
+                <?php if (!empty($blogs)): ?>
+                    <?php foreach ($blogs as $blog): ?>
+                        <article class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h2 class="card-title h4 fw-bold"><?= htmlspecialchars($blog['title']) ?></h2>
+                                
+                                <?php if (!empty($blog['subtitle'])): ?>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?= htmlspecialchars($blog['subtitle']) ?></h6>
+                                <?php endif; ?>
+
+                                <p class="card-text">
+                                    <?= htmlspecialchars(mb_strimwidth($blog['description'], 0, 200, '...')) ?>
+                                </p>
+                                
+                                <a href="blog.php?blog=<?= $blog['slug'] ?>" class="btn btn-outline-primary btn-sm">Ler artigo completo</a>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="text-muted">Nenhuma publicação encontrada.</p>
+                <?php endif; ?>
+
+            </div>
+        </div>
+
+    </main>
+
+    <?php include '_inc/_footer.php'; ?>
+
+    <script src="public/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

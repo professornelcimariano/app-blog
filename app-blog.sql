@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09/08/2024 às 00:11
+-- Tempo de geração: 06/08/2026 às 16:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,119 +20,101 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `app-blog`
 --
-CREATE DATABASE IF NOT EXISTS `app-blog` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `app-blog`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `car`
+-- Estrutura para tabela `blogs`
 --
 
-CREATE TABLE `car` (
+CREATE TABLE `blogs` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `subtitle` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `status` int(11) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `car`
+-- Despejando dados para a tabela `blogs`
 --
 
-INSERT INTO `car` (`id`, `name`, `description`, `status`) VALUES
-(16, 'NELCI MARIANO', 'qwer', 0),
-(17, 'Produto 1', '', 0);
+INSERT INTO `blogs` (`id`, `title`, `subtitle`, `description`, `image`, `status`, `slug`) VALUES
+(1, 'O Futuro do Desenvolvimento Web com Bootstrap', 'Aprenda as melhores práticas de criação de interfaces responsivas', 'O Bootstrap continua sendo uma das ferramentas mais populares para criação de layouts web. Com suporte avançado a Flexbox e CSS Grid, é possível construir páginas modernas rapidamente.', 'post1.jpg', 1, 'o-futuro-do-desenvolvimento-web-com-bootstrap'),
+(2, 'Guia Definitivo de UI/UX para Blogs Modernos', 'Dicas essenciais de tipografia e espaçamento para retenção de leitores', 'A experiência do usuário em blogs vai muito além da estética. Tipografia adequada, contraste de cores e espaçamento correto influenciam diretamente o tempo de leitura.', 'post2.jpg', 1, 'guia-definitivo-de-ui-ux-para-blogs-modernos'),
+(3, 'Como Estruturar Projetos PHP sem Frameworks', 'Organize seu código com boas práticas e padrão de arquitetura limpo', 'Entenda como criar conexões seguras com PDO, organizar rotas simples e reaproveitar headers e footers em projetos PHP puros de forma eficiente.', '', 0, 'como-estruturar-projetos-php-sem-frameworks'),
+(5, 'teste', 'teste', 'tes', 'ti-1.avif', 1, 'teste');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `product`
+-- Estrutura para tabela `level_users`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `level_users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `product`
+-- Despejando dados para a tabela `level_users`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`) VALUES
-(7, 'Produto 3', 0.00);
+INSERT INTO `level_users` (`id`, `name`, `level`) VALUES
+(1, 'admin', 20),
+(2, 'super-admin', 50),
+(3, 'Editor', 15);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `suplier`
+-- Estrutura para tabela `users`
 --
 
-CREATE TABLE `suplier` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `suplier`
---
-
-INSERT INTO `suplier` (`id`, `name`, `description`) VALUES
-(3, 'NELCI MARIANO', 'Gol 2019 - v5');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `user`
---
-
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `pass` varchar(40) NOT NULL,
+  `pass` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `id_level_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `user`
+-- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `pass`, `slug`, `image`, `status`) VALUES
-(15, 'NELCI MARIANO', 'nelcijunior@yahoo.com.br', 'b22bc9ac1d796c451473e99fc06fd566', 'nelci-mariano', 'be277c77d242fc0d657b3492872b045e2879c3958c92c7fe2bdfe6342f73489b.png', 0),
-(16, 'NELCI MARIANO P', 'nelcijunior@yahoo.com.br', 'b22bc9ac1d796c451473e99fc06fd566', 'nelci-mariano-p', 'be277c77d242fc0d657b3492872b045e2879c3958c92c7fe2bdfe6342f73489b.png', 0),
-(17, 'NELCI MARIANO', 'nelcijunior@yahoo.com.br', 'b22bc9ac1d796c451473e99fc06fd566', 'nelci-mariano-1', 'be277c77d242fc0d657b3492872b045e2879c3958c92c7fe2bdfe6342f73489b.png', 0);
+INSERT INTO `users` (`id`, `name`, `email`, `pass`, `slug`, `image`, `status`, `id_level_users`) VALUES
+(38, 'nelci', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 'nelci', 'testimonial-3.jpg', 1, 1),
+(44, 'Nelci Mariano Pinto Júnior', 'nelci.juninho@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'nelci-mariano-pinto-j-nior', 'user.png', 1, 1),
+(45, 'Nelci Mariano Pinto Júnior', 'nelci.juninho2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'nelci-mariano-pinto-j-nior-1', 'user-1.png', 1, 1),
+(46, 'Nelci Mariano Pinto Júnior', 'nelci.juninho3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'nelci-mariano-pinto-j-nior-2', 'user-2.png', 1, 1);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `car`
+-- Índices de tabela `blogs`
 --
-ALTER TABLE `car`
+ALTER TABLE `blogs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `product`
+-- Índices de tabela `level_users`
 --
-ALTER TABLE `product`
+ALTER TABLE `level_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `suplier`
+-- Índices de tabela `users`
 --
-ALTER TABLE `suplier`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices de tabela `user`
---
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -140,28 +122,22 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT de tabela `car`
+-- AUTO_INCREMENT de tabela `blogs`
 --
-ALTER TABLE `car`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `product`
+-- AUTO_INCREMENT de tabela `level_users`
 --
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de tabela `suplier`
---
-ALTER TABLE `suplier`
+ALTER TABLE `level_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de tabela `user`
+-- AUTO_INCREMENT de tabela `users`
 --
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
