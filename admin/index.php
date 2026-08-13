@@ -1,5 +1,5 @@
 <?php
-require_once '../_conn/conect.php';
+require_once '../_conn/connect.php';
 // Verifica se há erro na URL para exibir o alerta
 $error = isset($_GET['error']) ? true : false;
 ?>
