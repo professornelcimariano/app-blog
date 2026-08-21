@@ -1,5 +1,5 @@
 <?php 
-include_once 'setup/_header.php'; 
+include_once '_inc/_header.php'; 
 
 // Conexão PDO com o banco 'app-blog'
 try {
