@@ -1,4 +1,4 @@
- <footer class="bg-dark text-white text-center py-4 mt-5">
+ <footer class="bg-dark text-white text-center py-4">
      <div class="container">
          <p class="mb-1">&copy; 2026 App Blog. Todos os direitos reservados.</p>
          <p class="mb-0">

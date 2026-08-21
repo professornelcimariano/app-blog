@@ -1,8 +1,9 @@
 <?php
-require_once '../../_conn/connect.php';
+require_once '../../setup/connect.php';
 
 try {
     $sql = "SELECT * FROM blogs ORDER BY id DESC";
+    // $sql = "SELECT * FROM blogs WHERE title LIKE '%futuro%' ORDER BY id DESC";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -54,7 +55,7 @@ include_once '../_inc/_header.php';
                                                     <i class="fas fa-image"></i>
                                                 </div>
                                             <?php endif; ?>
-                                            
+
                                             <div>
                                                 <div class="fw-bold text-dark"><?= htmlspecialchars($blog['title']); ?></div>
                                                 <div class="text-muted small text-truncate" style="max-width: 300px;">
@@ -81,8 +82,8 @@ include_once '../_inc/_header.php';
                                             <a href="form_update.php?id=<?= $blog['id']; ?>" class="btn btn-white btn-sm border" title="Editar">
                                                 <i class="fas fa-edit text-primary"></i>
                                             </a>
-                                            <a href="javascript:void(0)" class="btn btn-white btn-sm border" title="Excluir" 
-                                               onclick="confirmarExclusao(<?= $blog['id']; ?>, '<?= addslashes(htmlspecialchars($blog['title'])); ?>')">
+                                            <a href="javascript:void(0)" class="btn btn-white btn-sm border" title="Excluir"
+                                                onclick="confirmarExclusao(<?= $blog['id']; ?>, '<?= addslashes(htmlspecialchars($blog['title'])); ?>')">
                                                 <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </div>

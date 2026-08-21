@@ -1,5 +1,5 @@
 <?php
-require_once '../../_conn/connect.php';
+require_once '../../setup/connect.php';
 $post = filter_input_array(INPUT_POST);
 
 // Validação do ID e dos campos obrigatórios do usuário

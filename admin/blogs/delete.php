@@ -1,5 +1,5 @@
 <?php
-require_once '../../_conn/connect.php';
+require_once '../../setup/connect.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 

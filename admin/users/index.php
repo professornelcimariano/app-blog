@@ -1,5 +1,5 @@
 <?php
-require_once '../../_conn/connect.php';
+require_once '../../setup/connect.php';
 
 try {
     $sql = "SELECT U.*, L.name AS level_name 

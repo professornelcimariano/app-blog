@@ -1,5 +1,5 @@
 <?php
-require_once '../../_conn/connect.php';
+require_once '../../setup/connect.php';
 
 // --- 1. CONFIGURAÇÃO DE BUSCA E PAGINAÇÃO ---
 $busca = filter_input(INPUT_GET, 'busca', FILTER_UNSAFE_RAW) ?? ''; // ?? Se busca for nula, atribui string vazia

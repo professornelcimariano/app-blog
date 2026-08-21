@@ -5,7 +5,7 @@ if (empty($_POST)) {
     echo "Acesso Restrito";
     die();
 }
-include_once '../_conn/connect.php';
+include_once '../setup/connect.php';
 $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 // echo '<pre>';
 // var_dump($post);
