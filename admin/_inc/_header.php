@@ -5,7 +5,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 $raiz = dirname(__DIR__, 2); // __DIR__ é uma forma de obter o diretório atual do arquivo, e dirname(__DIR__, 2) sobe dois níveis para chegar à raiz do projeto
-include_once $raiz . '/_conn/connect.php';
+include_once $raiz . '/setup/connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
