@@ -1,5 +1,5 @@
 <?php
-require_once '_conn/connect.php';
+require_once 'setup/connect.php';
 
 // Captura e sanitiza o parâmetro 'blog' vindo da URL
 $slug = filter_input(INPUT_GET, 'blog', FILTER_DEFAULT);
