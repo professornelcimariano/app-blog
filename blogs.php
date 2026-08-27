@@ -1,5 +1,5 @@
 <?php 
-require_once '_conn/connect.php'; 
+require_once 'setup/connect.php'; 
 
 // Filtro opcional por busca simples via GET
 $search = isset($_GET['q']) ? trim($_GET['q']) : '';
