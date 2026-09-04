@@ -1,38 +1,58 @@
 <?php 
 include_once '_inc/_header.php'; 
 
-// Conexão PDO com o banco 'app-blog'
 try {
-    // $pdo = new PDO("mysql:host=localhost;dbname=app-blog;charset=utf8mb4", "root", "");
-    // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // 1. Métricas da Dashboard
-    $totalUsers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn() ?: 0;
-    $totalBlogs = $pdo->query("SELECT COUNT(*) FROM blogs")->fetchColumn() ?: 0;
-    $blogsAtivos = $pdo->query("SELECT COUNT(*) FROM blogs WHERE status = 1")->fetchColumn() ?: 0;
+    // Buscar o Nome do Admin Logado pelo email armazenado na sessão
+    $sql = "SELECT name FROM users WHERE email = :email LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':email', $_SESSION['email']);    
+    $stmt->execute();
+    $nomeAdmin = $stmt->fetchColumn() ?: 'Admin';
+    // Capturar apenas o primeiro nome do admin e Colocar a primeira letra em maiúscula
+    $nomeAdmin = ucfirst(strtolower($nomeAdmin));
+    $nomeAdmin = explode(' ', trim($nomeAdmin))[0];
+
+    // Métricas da Dashboard
+    $sql = "SELECT COUNT(*) FROM users";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $totalUsers = $stmt->fetchColumn() ?: 0;
+
+    $sql = "SELECT COUNT(*) FROM blogs";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $totalBlogs = $stmt->fetchColumn() ?: 0;
+
+    $sql = "SELECT COUNT(*) FROM blogs WHERE status = 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $blogsAtivos = $stmt->fetchColumn() ?: 0;
 
     // 2. Buscar Usuários Recentes + Nível de Permissão (JOIN com level_users)
-    $stmtUsers = $pdo->query("
+    $sql = "
         SELECT u.id, u.name, u.email, u.status, u.image, l.name AS level_name 
         FROM users u
         LEFT JOIN level_users l ON u.id_level_users = l.id
         ORDER BY u.id DESC LIMIT 5
-    ");
-    $recentUsers = $stmtUsers->fetchAll(PDO::FETCH_ASSOC);
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $recentUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 3. Buscar Blogs Recentes
-    $stmtBlogs = $pdo->query("
+    $sql = "
         SELECT id, title, subtitle, status, image 
         FROM blogs 
         ORDER BY id DESC LIMIT 5
-    ");
-    $recentBlogs = $stmtBlogs->fetchAll(PDO::FETCH_ASSOC);
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $recentBlogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    die("Erro na conexão com o banco de dados: " . $e->getMessage());
+    die("Erro na consulta: " . $e->getMessage());
 }
 
-$nomeAdmin = $_SESSION['usuario_nome'] ?? 'Admin';
 ?>
 
 <div class="container-fluid px-4 mt-4">

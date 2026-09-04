@@ -3,8 +3,6 @@ require_once '../../setup/connect.php';
 
 try {
     $sql = "SELECT * FROM blogs ORDER BY id DESC";
-    // $sql = "SELECT * FROM blogs WHERE title LIKE '%futuro%' ORDER BY id DESC";
-
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
